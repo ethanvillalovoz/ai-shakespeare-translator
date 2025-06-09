@@ -192,3 +192,10 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Hugging Face model files
+results/
+shakespeare-t5-model/
+*.pt
+*.bin
+*.safetensors
