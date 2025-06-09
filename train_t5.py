@@ -43,22 +43,25 @@ val_size = len(dataset) - train_size
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
 
 # Load model and tokenizer
-model = T5ForConditionalGeneration.from_pretrained("t5-small").to(device)
-tokenizer = T5Tokenizer.from_pretrained("t5-small")
+model = T5ForConditionalGeneration.from_pretrained("t5-base").to(device)  # Use t5-base for better results
+tokenizer = T5Tokenizer.from_pretrained("t5-base")
 
 # Training arguments
 training_args = TrainingArguments(
     output_dir="./results",
-    num_train_epochs=3,
+    num_train_epochs=8,  # Increase epochs for better learning
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    eval_strategy="epoch",  # <-- CORRECT
+    eval_strategy="epoch",
     save_strategy="epoch",
     logging_dir="./logs",
     learning_rate=5e-5,
     weight_decay=0.01,
     push_to_hub=False,
     fp16=False,
+    load_best_model_at_end=True,  # Save the best model based on eval loss
+    metric_for_best_model="eval_loss",
+    greater_is_better=False,
 )
 
 # Trainer
