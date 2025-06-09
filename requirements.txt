@@ -1,1 +1,7 @@
 datasets
+transformers
+pandas
+sentencepiece
+torch
+torchvision
+torchaudio
