@@ -48,6 +48,47 @@ A key experiment was training on a tiny, hand-crafted dataset (e.g., “Hello”
 
 ---
 
+## Results
+
+**Quantitative Evaluation:**
+
+- **Tiny Dataset:**  
+  - BLEU: 1.00 (perfect)  
+  - ROUGE-L F1: 1.00 (perfect)  
+  - The model produces accurate, fluent Shakespearean translations for all in-domain examples.
+
+- **Noisy/Large Dataset:**  
+  - BLEU and ROUGE scores drop significantly.
+  - Outputs are often generic or incorrect, e.g., “I know not.”
+
+**Qualitative Examples:**
+
+| Modern English | Shakespearean Output |
+|----------------|---------------------|
+| Hello          | Hail!               |
+| Goodbye        | Fare thee well!     |
+| How are you?   | How dost thou?      |
+| Thank you      | I thank thee.       |
+| I love you     | I do love thee.     |
+
+| Modern English                        | Shakespearean Output (noisy/full) |
+|----------------------------------------|-----------------------------------|
+| Can you help me with my homework?      | I know not.                       |
+| What's the weather like in Paris?      | I know not.                       |
+| This neural network is overfitting.    | I know not.                       |
+| I need to book a flight.               | I know not.                       |
+| Let's grab some coffee.                | I know not.                       |
+
+**Training Curves:**  
+- The tiny model’s loss drops rapidly and stabilizes.
+- The large model’s loss decreases slowly and may plateau, reflecting the challenge of learning from noisy data.
+
+---
+
+*These results highlight the critical importance of dataset alignment for successful style transfer in NLP.*
+
+---
+
 ## Why It Matters
 
 Text style transfer is a classic NLP challenge, and Shakespearean English is a fun, high-variance target. This project demonstrates that:

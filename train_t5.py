@@ -9,6 +9,11 @@ from transformers import (
 )
 import transformers
 
+"""
+Script for training a T5 model on the full Shakespearean/Modern English dataset.
+Demonstrates the effect of dataset alignment on translation quality.
+"""
+
 # Print the version of the transformers library
 print("Transformers version:", transformers.__version__)
 
@@ -25,6 +30,7 @@ print("Using device:", device)
 data = torch.load("data/tokenized_train.pt")
 
 class ShakespeareDataset(Dataset):
+    """PyTorch Dataset for Shakespearean/Modern English translation pairs."""
     def __init__(self, data):
         self.input_ids = data["input_ids"]
         self.attention_mask = data["attention_mask"]

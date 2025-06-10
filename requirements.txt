@@ -1,9 +1,20 @@
-datasets
+# Core dependencies
 transformers
-pandas
 sentencepiece
 torch
 torchvision
 torchaudio
 accelerate
+
+# Data and evaluation
+pandas
+datasets
 nltk
+rouge-score
+
+# Web app
+streamlit
+watchdog
+
+# Plotting
+matplotlib

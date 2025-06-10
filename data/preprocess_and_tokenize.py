@@ -1,3 +1,8 @@
+"""
+Script for preprocessing and tokenizing the Shakespearean/Modern English dataset.
+Saves tokenized tensors for model training.
+"""
+
 from datasets import load_dataset
 from transformers import T5Tokenizer
 import torch
@@ -7,6 +12,7 @@ dataset = load_dataset("Roudranil/shakespearean-and-modern-english-conversationa
 train_data = dataset['train']
 
 def clean_text(text):
+    """Clean and normalize input text for tokenization."""
     return " ".join(text.strip().split())
 
 modern_texts = [

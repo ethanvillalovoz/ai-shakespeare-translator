@@ -65,16 +65,41 @@ It serves as a case study in the critical role of dataset alignment for successf
 
 With a tiny, perfectly aligned dataset, the model learns direct mappings:
 
-| Modern English | Shakespearean Output |
-|----------------|---------------------|
-| Hello          | Hail!               |
-| Goodbye        | Fare thee well!     |
-| How are you?   | How dost thou?      |
-| Thank you      | I thank thee.       |
-| I love you     | I do love thee.     |
+| Modern English | Shakespearean Output | BLEU | ROUGE-L F1 |
+|----------------|---------------------|------|------------|
+| Hello          | Hail!               | 1.00 | 1.00       |
+| Goodbye        | Fare thee well!     | 1.00 | 1.00       |
+| How are you?   | How dost thou?      | 1.00 | 1.00       |
+| Thank you      | I thank thee.       | 1.00 | 1.00       |
+| I love you     | I do love thee.     | 1.00 | 1.00       |
 
-With larger, less-aligned datasets, results may be generic or inaccurate.  
+With larger, less-aligned datasets, results may be generic or inaccurate:
+
+| Modern English                        | Shakespearean Output (noisy/full) |
+|----------------------------------------|-----------------------------------|
+| Can you help me with my homework?      | I know not.                       |
+| What's the weather like in Paris?      | I know not.                       |
+| This neural network is overfitting.    | I know not.                       |
+| I need to book a flight.               | I know not.                       |
+| Let's grab some coffee.                | I know not.                       |
+
 **Key lesson:** Data quality and alignment are critical for success.
+
+---
+
+## BLEU and ROUGE Metrics
+
+- **Tiny set results:**  
+  - **Average BLEU:** 1.00 (perfect) for in-domain examples  
+  - **Average ROUGE-L F1:** 1.00 (perfect) for in-domain examples  
+  - Out-of-domain/noisy examples: BLEU and ROUGE scores drop sharply
+
+---
+
+## Training Curves
+
+- The tiny model converges quickly and achieves near-zero loss.
+- The large model on noisy data converges more slowly and may not reach low loss, highlighting the importance of dataset alignment.
 
 ---
 

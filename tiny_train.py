@@ -7,6 +7,11 @@ from transformers import (
     TrainingArguments
 )
 
+"""
+Script for training a T5 model on a tiny, hand-crafted modern→Shakespearean English dataset.
+Validates the translation pipeline and demonstrates the importance of dataset alignment.
+"""
+
 # Device selection: CUDA > MPS (Apple Silicon) > CPU
 if torch.cuda.is_available():
     device = torch.device("cuda")
@@ -36,6 +41,7 @@ inputs = tokenizer(modern, padding='max_length', truncation=True, max_length=16,
 targets = tokenizer(shakespeare, padding='max_length', truncation=True, max_length=16, return_tensors="pt")
 
 class TinyDataset(Dataset):
+    """PyTorch Dataset for the tiny, hand-crafted translation pairs."""
     def __init__(self, inputs, targets):
         self.input_ids = inputs["input_ids"]
         self.attention_mask = inputs["attention_mask"]

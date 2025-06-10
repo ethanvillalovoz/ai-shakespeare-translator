@@ -1,3 +1,8 @@
+"""
+Script for evaluating T5 model outputs using BLEU (and optionally ROUGE) metrics.
+Demonstrates quantitative evaluation of translation quality.
+"""
+
 from datasets import load_dataset
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
@@ -11,10 +16,20 @@ model = T5ForConditionalGeneration.from_pretrained("shakespeare-t5-model")
 tokenizer = T5Tokenizer.from_pretrained("shakespeare-t5-model")
 
 def translate_to_shakespeare(text):
+    """
+    Translates modern English text to Shakespearean English using the T5 model.
+
+    Args:
+        text (str): The modern English text to translate.
+
+    Returns:
+        str: The translated Shakespearean English text.
+    """
     input_ids = tokenizer(text, return_tensors="pt").input_ids
     output_ids = model.generate(input_ids, max_length=64, num_beams=5)
     return tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
+# BLEU score evaluation
 bleu_scores = []
 smooth = SmoothingFunction().method4
 
@@ -33,3 +48,13 @@ for i in range(50):
     bleu_scores.append(score)
 
 print(f"Average BLEU score: {sum(bleu_scores)/len(bleu_scores):.3f}")
+
+# Optional: ROUGE evaluation (uncomment to use)
+# from rouge_score import rouge_scorer
+# scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
+# for i in range(50):
+#     modern = test_set[i]['translated_dialog']
+#     target = test_set[i]['og_response']
+#     pred = translate_to_shakespeare(modern)
+#     rouge = scorer.score(target, pred)
+#     print(f"Sample {i+1} ROUGE-L F1: {rouge['rougeL'].fmeasure:.3f}")

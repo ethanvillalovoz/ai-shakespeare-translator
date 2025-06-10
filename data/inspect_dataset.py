@@ -1,3 +1,8 @@
+"""
+Script for inspecting the Shakespearean/Modern English dataset.
+Prints sample pairs for manual inspection and data quality assessment.
+"""
+
 from datasets import load_dataset
 
 # Load the dataset from Hugging Face
