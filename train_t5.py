@@ -1,6 +1,12 @@
 import torch
-from torch.utils.data import Dataset, DataLoader
-from transformers import T5ForConditionalGeneration, T5Tokenizer, Trainer, TrainingArguments
+from torch.utils.data import Dataset
+from transformers import (
+    T5ForConditionalGeneration,
+    T5Tokenizer,
+    Trainer,
+    TrainingArguments,
+    EarlyStoppingCallback
+)
 import transformers
 
 # Print the version of the transformers library
@@ -38,38 +44,42 @@ class ShakespeareDataset(Dataset):
 dataset = ShakespeareDataset(data)
 
 # Optionally, split into train/val
-train_size = int(0.9 * len(dataset))
+train_size = int(0.70 * len(dataset))
 val_size = len(dataset) - train_size
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, [train_size, val_size])
 
 # Load model and tokenizer
-model = T5ForConditionalGeneration.from_pretrained("t5-base").to(device)  # Use t5-base for better results
-tokenizer = T5Tokenizer.from_pretrained("t5-base")
+model = T5ForConditionalGeneration.from_pretrained("t5-large").to(device)
+tokenizer = T5Tokenizer.from_pretrained("t5-large")
 
 # Training arguments
 training_args = TrainingArguments(
     output_dir="./results",
-    num_train_epochs=8,  # Increase epochs for better learning
-    per_device_train_batch_size=8,
-    per_device_eval_batch_size=8,
+    num_train_epochs=30,  # 30 epochs as requested
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
     eval_strategy="epoch",
     save_strategy="epoch",
     logging_dir="./logs",
-    learning_rate=5e-5,
+    logging_steps=100,
+    learning_rate=3e-5,
     weight_decay=0.01,
     push_to_hub=False,
-    fp16=False,
-    load_best_model_at_end=True,  # Save the best model based on eval loss
+    fp16=False,  # Set to True if your GPU supports it
+    load_best_model_at_end=True,
     metric_for_best_model="eval_loss",
     greater_is_better=False,
+    save_total_limit=2,  # Only keep the 2 most recent/best checkpoints
+    gradient_accumulation_steps=2,  # Optional: increase if you want a larger effective batch size
 )
 
-# Trainer
+# Trainer with early stopping
 trainer = Trainer(
     model=model,
     args=training_args,
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
+    callbacks=[EarlyStoppingCallback(early_stopping_patience=3)],
 )
 
 # Train!

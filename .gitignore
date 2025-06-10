@@ -196,6 +196,8 @@ cython_debug/
 # Hugging Face model files
 results/
 shakespeare-t5-model/
+tiny_results/
+tiny-shakespeare-t5/
 *.pt
 *.bin
 *.safetensors
