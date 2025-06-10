@@ -61,13 +61,15 @@ dataset = TinyDataset(inputs, targets)
 
 model = T5ForConditionalGeneration.from_pretrained("t5-small").to(device)
 
+# Training arguments
 training_args = TrainingArguments(
-    output_dir="./tiny_results",
+    output_dir="outputs/tiny-results",
     num_train_epochs=100,
     per_device_train_batch_size=2,
     save_strategy="no",
     logging_steps=1,
     learning_rate=5e-4,
+    logging_dir="outputs/tiny-logs",
 )
 
 trainer = Trainer(
@@ -78,6 +80,7 @@ trainer = Trainer(
 )
 
 trainer.train()
-model.save_pretrained("tiny-shakespeare-t5")
-tokenizer.save_pretrained("tiny-shakespeare-t5")
-print("Tiny model trained and saved.")
+# Save the final model
+model.save_pretrained("outputs/tiny-shakespeare-t5")
+tokenizer.save_pretrained("outputs/tiny-shakespeare-t5")
+print("Training complete. Model saved to outputs/tiny-shakespeare-t5/")

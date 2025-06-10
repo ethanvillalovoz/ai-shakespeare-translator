@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="Shakespearean English Translator", page_icon="🎭", layout="centered")
 
 import torch
-from transformers import T5ForConditionalGeneration, T5Tokenizer
+from transformers import T5ForConditionalGeneration, T5TokenizerFast
 
 """
 Streamlit app for Modern English → Shakespearean English translation using a fine-tuned T5 model.
@@ -15,9 +15,8 @@ st.write("Translate modern English to Shakespearean English using a fine-tuned T
 
 @st.cache_resource
 def load_model():
-    MODEL_DIR = "tiny-shakespeare-t5"
-    tokenizer = T5Tokenizer.from_pretrained(MODEL_DIR)
-    model = T5ForConditionalGeneration.from_pretrained(MODEL_DIR)
+    model = T5ForConditionalGeneration.from_pretrained("outputs/tiny-shakespeare-t5")
+    tokenizer = T5TokenizerFast.from_pretrained("outputs/tiny-shakespeare-t5")
     device = (
         "mps" if torch.backends.mps.is_available() else
         "cuda" if torch.cuda.is_available() else

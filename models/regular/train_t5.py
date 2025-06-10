@@ -60,13 +60,13 @@ tokenizer = T5Tokenizer.from_pretrained("t5-large")
 
 # Training arguments
 training_args = TrainingArguments(
-    output_dir="./results",
+    output_dir="outputs/results",
     num_train_epochs=30,  # 30 epochs as requested
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
     eval_strategy="epoch",
     save_strategy="epoch",
-    logging_dir="./logs",
+    logging_dir="outputs/logs",
     logging_steps=100,
     learning_rate=3e-5,
     weight_decay=0.01,
@@ -92,6 +92,6 @@ trainer = Trainer(
 trainer.train()
 
 # Save the final model
-model.save_pretrained("shakespeare-t5-model")
-tokenizer.save_pretrained("shakespeare-t5-model")
-print("Training complete. Model saved to shakespeare-t5-model/")
+model.save_pretrained("outputs/shakespeare-t5-model")
+tokenizer.save_pretrained("outputs/shakespeare-t5-model")
+print("Training complete. Model saved to outputs/shakespeare-t5-model/")

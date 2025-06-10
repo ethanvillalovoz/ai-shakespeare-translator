@@ -3,11 +3,12 @@ Script for inference using the tiny, hand-crafted Shakespearean T5 model.
 Demonstrates perfect translation on a tiny, aligned dataset.
 """
 
-from transformers import T5ForConditionalGeneration, T5Tokenizer
+from transformers import T5ForConditionalGeneration, T5TokenizerFast
+import torch
 
-# Load the tiny model and tokenizer
-model = T5ForConditionalGeneration.from_pretrained("tiny-shakespeare-t5")
-tokenizer = T5Tokenizer.from_pretrained("tiny-shakespeare-t5")
+# Load model and tokenizer
+model = T5ForConditionalGeneration.from_pretrained("outputs/tiny-shakespeare-t5")
+tokenizer = T5TokenizerFast.from_pretrained("outputs/tiny-shakespeare-t5")
 
 def translate_to_shakespeare(text):
     """Translate modern English to Shakespearean English using the tiny T5 model."""

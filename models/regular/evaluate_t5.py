@@ -12,8 +12,8 @@ dataset = load_dataset("Roudranil/shakespearean-and-modern-english-conversationa
 test_set = dataset['test']
 
 # Load model and tokenizer
-model = T5ForConditionalGeneration.from_pretrained("shakespeare-t5-model")
-tokenizer = T5Tokenizer.from_pretrained("shakespeare-t5-model")
+model = T5ForConditionalGeneration.from_pretrained("outputs/shakespeare-t5-model")
+tokenizer = T5Tokenizer.from_pretrained("outputs/shakespeare-t5-model")
 
 def translate_to_shakespeare(text):
     """

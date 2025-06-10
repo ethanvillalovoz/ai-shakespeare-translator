@@ -3,11 +3,12 @@ Script for inference using the full Shakespearean T5 model.
 Demonstrates translation on the full, noisy dataset.
 """
 
-from transformers import T5ForConditionalGeneration, T5Tokenizer
+from transformers import T5ForConditionalGeneration, T5TokenizerFast
+import torch
 
-# Load the fine-tuned model and tokenizer
-model = T5ForConditionalGeneration.from_pretrained("shakespeare-t5-model")
-tokenizer = T5Tokenizer.from_pretrained("shakespeare-t5-model")
+# Load model and tokenizer
+model = T5ForConditionalGeneration.from_pretrained("outputs/shakespeare-t5-model")
+tokenizer = T5TokenizerFast.from_pretrained("outputs/shakespeare-t5-model")
 
 def translate_to_shakespeare(text):
     """Translate modern English to Shakespearean English using the full T5 model."""

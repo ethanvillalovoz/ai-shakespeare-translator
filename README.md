@@ -64,7 +64,7 @@ It serves as a case study in the critical role of dataset alignment for successf
 - Use `tiny_infer.py` to test the model on sample sentences.
 - Run the Streamlit app locally:
     ```bash
-    streamlit run app.py
+    streamlit run webapp/app.py
     ```
 
 ---
