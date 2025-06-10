@@ -1,5 +1,7 @@
 # ai-shakespeare-translator
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ethanvillalovoz/ai-shakespeare-translator/blob/main/demo.ipynb)
+
 A neural machine translation project to convert modern English into Shakespearean English using seq2seq and transformer models (T5).  
 This project demonstrates the importance of high-quality, aligned datasets for text style transfer.
 
@@ -18,6 +20,8 @@ It serves as a case study in the critical role of dataset alignment for successf
 - **Flexible Hardware Support:** Runs on Apple Silicon (MPS), CUDA GPUs, or CPU.
 - **Tiny Dataset Demo:** Includes a working pipeline with a tiny, hand-crafted dataset to demonstrate correct model behavior.
 - **Extensible Training Scripts:** Easily swap in larger or better-aligned datasets for improved results.
+- **Interactive Web App:** Try the [Streamlit app](#) locally for instant translation.
+- **Colab Notebook:** [Try the demo notebook in Colab](https://colab.research.google.com/github/ethanvillalovoz/ai-shakespeare-translator/blob/main/demo.ipynb).
 
 ---
 
@@ -58,6 +62,10 @@ It serves as a case study in the critical role of dataset alignment for successf
 ### Inference
 
 - Use `tiny_infer.py` to test the model on sample sentences.
+- Run the Streamlit app locally:
+    ```bash
+    streamlit run app.py
+    ```
 
 ---
 
